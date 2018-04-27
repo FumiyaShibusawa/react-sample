@@ -1,0 +1,6 @@
+section.wrapper
+  h1 = "#{t('site_title')}"
+  #game
+
+- content_for :bottom_script do
+  = javascript_pack_tag "tic_tac_toe"

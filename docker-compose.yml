@@ -1,0 +1,37 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./containers/app/Dockerfile
+    volumes:
+      - .:/react-sample:cached
+      - bundle:/usr/local/bundle
+    ports:
+      - "${EXTERNAL_RAILS_PORT:-4000}:4000"
+    depends_on:
+      - mysql
+      - kvs
+    tty: true
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./containers/mysql/Dockerfile
+    volumes:
+      - data_mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "${EXTERNAL_MYSQL_PORT:-4406}:4406"
+
+  kvs:
+    build:
+      context: .
+      dockerfile: ./containers/kvs/Dockerfile
+    ports:
+      - "${EXTERNAL_REDIS_PORT:-6378}:6378"
+
+volumes:
+  data_mysql:
+  bundle:
