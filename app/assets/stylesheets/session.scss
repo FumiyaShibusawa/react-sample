@@ -1,3 +1,49 @@
 // Place all the styles related to the SessionsController controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+header, main, footer, section, aside, article {
+  padding: 30px;
+  h1, h2, h3, h4, h5 {
+    margin: 0 0 30px;
+  }
+  p {
+    margin: 0 0 20px;
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav {
+  position: relative;
+  @mixin peudo-core-style {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+  }
+  &::before {
+    @include peudo-core-style;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+  &::after {
+    @include peudo-core-style;
+    right: 0;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  }
+  ul {
+    overflow: scroll;
+    white-space: nowrap;
+    padding: 20px 0;
+    li {
+      display: inline-block;
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+}

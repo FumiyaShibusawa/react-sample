@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   root "sessions#index"
   namespace :react_samples, path: '/' do
     resources :tic_tac_toe, only: [:index]
-    resources :plain_editor, only: [:index]
+    resources :send_form, only: [:index]
   end
 end
