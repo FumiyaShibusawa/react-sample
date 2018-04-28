@@ -1,3 +1,23 @@
 // Place all the styles related to the ReactSamples::SendForm controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.grid-component {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  #send_form, #form_result {
+    min-height: 416px;
+    height: 100%;
+    word-break: break-all;
+    position: relative;
+  }
+  #form_result {
+    p {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all .3s ease-in-out;
+      font-family: "ヒラギノ明朝 ProN W3", "HiraMinProN-W3", "HG明朝E", "ＭＳ Ｐ明朝", "MS PMincho", "MS 明朝", serif;
+      font-size: 2rem;
+    }
+  }
+}
