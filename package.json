@@ -3,6 +3,7 @@
     "@rails/webpacker": "3.4",
     "ajv": "^6.4.0",
     "babel-preset-react": "^6.24.1",
+    "hoek": "^5.0.3",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
