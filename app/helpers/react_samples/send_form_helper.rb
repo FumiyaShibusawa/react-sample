@@ -1,0 +1,2 @@
+module ReactSamples::SendFormHelper
+end
