@@ -11,7 +11,10 @@ html lang="ja"
     = javascript_pack_tag 'application'
     = yield :head
   body
-    = yield :header
-    = yield :content
-    = yield :footer
+    header
+      = yield :header
+    main
+      = yield :content
+    footer#footer-root
+      = yield :footer
     = yield :bottom_script
