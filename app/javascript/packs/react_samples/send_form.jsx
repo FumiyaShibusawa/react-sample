@@ -1,64 +1,85 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import 'babel-polyfill'
+
+function Words(props) {
+  const box = document.getElementById('form_result');
+  if(box && props.letters.length > 0) {
+    const spread_letters = props.letters.map((letter, index) => {
+      const styles = {
+        top: `${Math.abs(Math.random() * box.clientHeight - 100) + 50}px`,
+        left: `${Math.abs(Math.random() * box.clientWidth - 400) + 200}px`,
+        fontSize: `${Math.random() * 15.5 + 1.0}rem`
+      };
+      return <p key={ `${letter}_${index}` } style={ styles }>{ letter }</p>
+    });
+    return (
+      <div>{ spread_letters }</div>
+    );
+  } else {
+    return null;
+  }
+};
 
 class EssayForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
+      letters: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   };
-
-  spreadWordsInBox(words) {
-    return new Promise((resolve, reject) => {
-      const box = document.getElementById('form_result');
-      const letters = words.split("");
-      let p = document.createElement('p');
-      letters.map((letter) => {
-        let p_cloned = p.cloneNode();
-        p_cloned.innerText = letter;
-        p_cloned.style.top = `${Math.random() * box.clientHeight}px`;
-        p_cloned.style.left = `${Math.random() * box.clientWidth}px`;
-        box.appendChild(p_cloned);
-      });
-      resolve();
-    });
-  }
 
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
-    this.spreadWordsInBox(this.state.value).then(() => {
-      console.log("letters are spread.")
-    });
-    event.preventDefault();
+    this.setState({ letters: this.state.value.split("") });
   }
 
   handleClear(event) {
-    const box = document.getElementById('form_result');
-    for(let i = box.children.length - 1; i >=0; i--) {
-      box.removeChild(box.childNodes[i]);
-    }
+    this.setState({ letters: [] });
   }
+
+  handleGenerator(event) {
+    const g = generator();
+    console.log(g.next());
+    console.log(g.next());
+    console.log(g.next());
+  }
+
 
   render() {
     return(
-      <form>
-        <label>
-          <textarea value={ this.state.value } onChange={ this.handleChange }/>
-        </label>
-        <button onClick={ this.handleSubmit } type="button" value="ぶっこむ">ぶっこむ</button>
-        <button onClick={ this.handleClear } type="button" value="クリア">クリア</button>
-      </form>
+      <div className="grid-component">
+        <div id="send_form">
+          <form>
+            <label>
+              <textarea value={ this.state.value } onChange={ this.handleChange }/>
+            </label>
+            <button onClick={ this.handleSubmit } type="button" value="ぶっこむ">ぶっこむ</button>
+            <button onClick={ this.handleClear } type="button" value="クリア">クリア</button>
+          </form>
+        </div>
+        <div id="form_result">
+          <Words letters={ this.state.letters }/>
+        </div>
+      </div>
     )
   }
 }
 
+function* generator() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
 ReactDOM.render(
   <EssayForm />,
-  document.getElementById('send_form')
+  document.getElementById('grid-root')
 )
