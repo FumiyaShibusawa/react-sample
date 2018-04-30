@@ -3,22 +3,10 @@ import ReactDOM from 'react-dom'
 import 'babel-polyfill'
 
 function Words(props) {
-  const box = document.getElementById('form_result');
-  if(box && props.letters.length > 0) {
-    const spread_letters = props.letters.map((letter, index) => {
-      const styles = {
-        top: `${Math.abs(Math.random() * box.clientHeight - 100) + 50}px`,
-        left: `${Math.abs(Math.random() * box.clientWidth - 400) + 200}px`,
-        fontSize: `${Math.random() * 15.5 + 1.0}rem`
-      };
-      return <p key={ `${letter}_${index}` } style={ styles }>{ letter }</p>
-    });
-    return (
-      <div>{ spread_letters }</div>
-    );
-  } else {
-    return null;
-  }
+  const words = props.letters.map((letter, i) => {
+    return <p style={ props.styles[i] } >{ letter }</p>
+  })
+  return ( <div>{ words }</div> )
 };
 
 class EssayForm extends Component {
@@ -26,7 +14,8 @@ class EssayForm extends Component {
     super(props);
     this.state = {
       value: '',
-      letters: []
+      letters: [],
+      styles: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,18 +28,30 @@ class EssayForm extends Component {
 
   handleSubmit(event) {
     this.setState({ letters: this.state.value.split("") });
+    const box = document.getElementById('form_result');
+    const letters = this.state.letters;
+    let styles = [];
+    for(let i = 0; i < letters.length; i++) {
+      styles.push({
+        top: `${Math.abs(Math.random() * box.clientHeight - 100) + 50}px`,
+        left: `${Math.abs(Math.random() * box.clientWidth - 400) + 200}px`,
+        fontSize: `${Math.random() * 15.5 + 1.0}rem`
+      });
+    };
+    this.setState({ styles: styles });
   }
 
   handleClear(event) {
     this.setState({ letters: [] });
+    this.setState({ styles: [] });
   }
 
-  handleGenerator(event) {
-    const g = generator();
-    console.log(g.next());
-    console.log(g.next());
-    console.log(g.next());
-  }
+  // handleGenerator(event) {
+  //   const g = generator();
+  //   console.log(g.next());
+  //   console.log(g.next());
+  //   console.log(g.next());
+  // }
 
 
   render() {
@@ -66,7 +67,7 @@ class EssayForm extends Component {
           </form>
         </div>
         <div id="form_result">
-          <Words letters={ this.state.letters }/>
+          <Words styles={ this.state.styles } letters={ this.state.letters }/>
         </div>
       </div>
     )

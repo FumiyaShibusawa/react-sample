@@ -1,0 +1,2 @@
+module ReactSamples::TemperatureMeterHelper
+end

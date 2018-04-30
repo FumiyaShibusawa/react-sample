@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   namespace :react_samples, path: '/' do
     resources :tic_tac_toe, only: [:index]
     resources :send_form, only: [:index]
+    resources :temperature_meter, only: [:index]
   end
 end
