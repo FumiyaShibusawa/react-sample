@@ -27,9 +27,8 @@ class EssayForm extends Component {
   }
 
   handleSubmit(event) {
-    this.setState({ letters: this.state.value.split("") });
+    const letters = this.state.value.split("");
     const box = document.getElementById('form_result');
-    const letters = this.state.letters;
     let styles = [];
     for(let i = 0; i < letters.length; i++) {
       styles.push({
@@ -38,6 +37,7 @@ class EssayForm extends Component {
         fontSize: `${Math.random() * 15.5 + 1.0}rem`
       });
     };
+    this.setState({ letters: letters });
     this.setState({ styles: styles });
   }
 
