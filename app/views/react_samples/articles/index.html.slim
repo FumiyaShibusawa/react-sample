@@ -1,0 +1,34 @@
+#react-samples-admin
+  .sidebar
+    .logo
+      = link_to "React Sample", root_path
+    .menu-list
+      ul
+        li
+          i.fa.fa-home
+          | Home
+        li
+          i.fa.fa-tachometer
+          | Dashboard
+        li
+          i.fa.fa-users
+          | Prospects
+        li.current
+          i.fa.fa-file-text
+          | Articles
+        li
+          i.fa.fa-line-chart
+          | Report
+        li
+          i.fa.fa-cog
+          | Settings
+
+  .content
+    .navigation-bar
+      ul
+        li = link_to "F.Shibusawa", root_path, class: "user-name"
+
+    #article-table-root
+
+- content_for :bottom_script do
+  = javascript_pack_tag "react_samples/articles"

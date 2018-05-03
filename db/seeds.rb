@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+status = ["draft", "open", "members_only"]
+10000.times do
+  Article.create(title: Faker::Book.title, content: Faker::Lorem.sentence(900), status: status.sample)
+end
