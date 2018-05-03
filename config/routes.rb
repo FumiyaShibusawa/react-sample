@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :tic_tac_toe, only: [:index]
     resources :send_form, only: [:index]
     resources :temperature_meter, only: [:index]
+    resources :articles, only: [:index]
   end
 end

@@ -20,6 +20,10 @@ gem 'webpacker'
 
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'slim-rails'
+gem 'faker'
+gem 'ransack'
+gem 'kaminari'
+gem 'font-awesome-rails'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

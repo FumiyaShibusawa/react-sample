@@ -4,6 +4,7 @@
       li = link_to "まるばつゲーム", react_samples_tic_tac_toe_index_path
       li = link_to "フォーム送信", react_samples_send_form_index_path
       li = link_to "温度計", react_samples_temperature_meter_index_path
+      li = link_to "記事テーブル", react_samples_articles_path
 
 - content_for :main do
   = yield
@@ -11,5 +12,5 @@
 - content_for :footer do
   - if request.path_info != root_path
     = link_to "トップへ戻る", root_path
-w
+
 = render :partial => "layouts/base"
