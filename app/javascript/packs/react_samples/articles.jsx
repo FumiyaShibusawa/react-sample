@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 
 const status = ["draft", "open", "members_only"];
 
@@ -62,6 +63,21 @@ class ArticleTable extends Component {
   }
 }
 
+// 型チェック
+ArticleTable.propTypes = {
+  rows: (props, propName, ComponentName) => {
+    if (Array.isArray(props[propName])) {
+      return console.log(`Typechecking of prop: ${propName} in Component: ${ComponentName} is passed.`);
+    } else {
+      return new Error(
+        'Invalid prop `' + propName + '` supplied to' +
+         ' `' + componentName + '`. Validation failed.'
+      )
+    }
+  }
+}
+
+
 class ArticleTableWrapper extends Component {
   constructor(props) {
     super(props);
@@ -115,6 +131,7 @@ class ArticleTableWrapper extends Component {
     )
   }
 }
+
 ReactDOM.render(
   <ArticleTableWrapper />,
   document.getElementById('article-table-root')
