@@ -1,15 +1,42 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
+// @flow
+
+import * as React from 'react';
 import ReactDOM from 'react-dom'
 import 'babel-polyfill'
 
-function Words(props) {
+type Styles = {
+  top: string,
+  left: string,
+  fontSize: string
+}
+
+type Props = {
+  letters: Array<string>,
+  styles: Array<Styles>
+};
+
+type State = {
+  value: string,
+  letters: Array<string>,
+  styles: Array<Styles>
+};
+
+
+
+function Words(props: Props) {
   const words = props.letters.map((letter, i) => {
-    return <p style={ props.styles[i] } >{ letter }</p>
+    return <p key={`${letter}_${i}`} style={ props.styles[i] } >{ letter }</p>
   })
   return ( <div>{ words }</div> )
 };
 
-class EssayForm extends Component {
+Words.defaultProps = {
+  letters: ["hoge"]
+};
+
+
+class EssayForm extends React.Component<{}, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,31 +44,30 @@ class EssayForm extends Component {
       letters: [],
       styles: []
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClear = this.handleClear.bind(this);
   };
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     const letters = this.state.value.split("");
     const box = document.getElementById('form_result');
     let styles = [];
-    for(let i = 0; i < letters.length; i++) {
-      styles.push({
-        top: `${Math.abs(Math.random() * box.clientHeight - 100) + 50}px`,
-        left: `${Math.abs(Math.random() * box.clientWidth - 400) + 200}px`,
-        fontSize: `${Math.random() * 15.5 + 1.0}rem`
-      });
-    };
-    this.setState({ letters: letters });
-    this.setState({ styles: styles });
+    if (box) {
+      for(let i = 0; i < letters.length; i++) {
+        styles.push({
+          top: `${Math.abs(Math.random() * box.clientHeight - 100) + 50}px`,
+          left: `${Math.abs(Math.random() * box.clientWidth - 400) + 200}px`,
+          fontSize: `${Math.random() * 15.5 + 1.0}rem`
+        });
+      };
+      this.setState({ letters: letters });
+      this.setState({ styles: styles });
+    }
   }
 
-  handleClear(event) {
+  handleClear = (event) => {
     this.setState({ letters: [] });
     this.setState({ styles: [] });
   }
@@ -80,7 +106,12 @@ function* generator() {
   yield 3;
 }
 
-ReactDOM.render(
-  <EssayForm />,
-  document.getElementById('grid-root')
-)
+const grid_root = document.getElementById('grid-root');
+if (grid_root == null) {
+  throw new Error("no grid-root element!");
+} else {
+  ReactDOM.render(
+    <EssayForm />,
+    grid_root
+  )
+}

@@ -9,9 +9,10 @@
           "uglify": true
         },
         "useBuiltIns": true
-      }
+      },
     ],
-    "react"
+    "flow",
+    "react",
   ],
   "plugins": [
     "syntax-dynamic-import",

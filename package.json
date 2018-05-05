@@ -9,6 +9,10 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
+    "flow-bin": "^0.71.0",
     "webpack-dev-server": "2.11.2"
+  },
+  "scripts": {
+    "flow": "flow"
   }
 }
