@@ -36,6 +36,20 @@ class SearchBar extends Component {
 }
 
 class ArticleTable extends Component {
+  // 型チェック
+  static propTypes = {
+    rows: (props, propName, ComponentName) => {
+      if (Array.isArray(props[propName])) {
+        return console.log(`Typechecking of prop: ${propName} in Component: ${ComponentName} is passed.`);
+      } else {
+        return new Error(
+          'Invalid prop `' + propName + '` supplied to' +
+           ' `' + componentName + '`. Validation failed.'
+        )
+      }
+    }
+  };
+
   render() {
     const rows = this.props.rows;
     return(
@@ -62,21 +76,6 @@ class ArticleTable extends Component {
     )
   }
 }
-
-// 型チェック
-ArticleTable.propTypes = {
-  rows: (props, propName, ComponentName) => {
-    if (Array.isArray(props[propName])) {
-      return console.log(`Typechecking of prop: ${propName} in Component: ${ComponentName} is passed.`);
-    } else {
-      return new Error(
-        'Invalid prop `' + propName + '` supplied to' +
-         ' `' + componentName + '`. Validation failed.'
-      )
-    }
-  }
-}
-
 
 class ArticleTableWrapper extends Component {
   constructor(props) {
