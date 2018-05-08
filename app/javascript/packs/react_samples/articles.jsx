@@ -85,7 +85,6 @@ class ArticleTableWrapper extends Component {
       rows: [],
       error: null
     };
-    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -101,7 +100,7 @@ class ArticleTableWrapper extends Component {
     );
   }
 
-  handleSearch(event) {
+  handleSearch = () => {
     const form_inputs = document.getElementsByClassName("query-params");
     let params = "";
     for (let i = 0; i < form_inputs.length; i++) {
